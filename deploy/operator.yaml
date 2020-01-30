@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-manager-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mysql-manager-operator
+  template:
+    metadata:
+      labels:
+        name: mysql-manager-operator
+    spec:
+      serviceAccountName: mysql-manager-operator
+      containers:
+        - name: mysql-manager-operator
+          # Replace this with the built image name
+          image: kdichalas/mysql-manager-operator:latest
+          command:
+          - mysql-manager-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "mysql-manager-operator"

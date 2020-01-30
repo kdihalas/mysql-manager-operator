@@ -1,0 +1,20 @@
+apiVersion: mysql.kdichalas.net/v1alpha1
+kind: Mysql
+metadata:
+  name: demo1
+spec:
+  backend:
+    host: a0a9292783d3c11ea9af5063638d13e5-1188536754.eu-west-1.elb.amazonaws.com
+    port: 3306
+    credentials:
+      name: mysql
+      namespace: default
+  database:
+    characterSet: utf8
+    collate: utf8_general_ci
+    host: '%'
+    credentials:
+      name: mysql-user
+      namespace: default
+    privileges:
+      - 'ALL PRIVILEGES'
